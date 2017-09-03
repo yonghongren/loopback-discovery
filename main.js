@@ -10,6 +10,7 @@ var tablesList = null;
 var overwrite = false;
 var views = false;
 var all = false;
+var outputDir = null;
 
 for (var i = 2; i < process.argv.length; i++) {
   switch (process.argv[i]) {
@@ -27,6 +28,9 @@ for (var i = 2; i < process.argv.length; i++) {
       break;
     case '-l':
       tablesList = process.argv[++i].split(',');
+      break;
+    case '-p':
+      outputDir = process.argv[++i];
       break;
     case '-h':
     case '--help':
@@ -65,6 +69,7 @@ setDatasource(discoverer, dsName, function (err, set) {
   discoverer.loadModelConfiguration();
 
   discoverer.discoverModels({
+    outputDir: outputDir,
     overwrite: overwrite,
     all: all,
     views: views,
@@ -128,6 +133,7 @@ function printUsage() {
   console.log('  use "-v" option to also export views');
   console.log('  use "-d" option to select the datasource');
   console.log('  use "-l" option to specify the list of tables to export, comma separated');
+  console.log('  use "-p" option to change output directory. Default is common/mdels/');
   console.log('');
   console.log('  if app path is not specified the current working folder is used.');
   
