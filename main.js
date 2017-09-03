@@ -86,7 +86,11 @@ setDatasource(discoverer, dsName, function (err, set) {
 
       utils.selectPublicModels(models, function (models) {
         discoverer.updateModels(models);
-        discoverer.saveModelConfiguration();
+        if (!outputDir) {
+            /* If we are putting discovered models in a separate directory,
+               we shouldn't update model-config.json either. */
+            discoverer.saveModelConfiguration();
+        }
         console.log('Discovery completed.');
         process.exit(0);
       });
