@@ -122,7 +122,10 @@ function setDatasource(discoverer, dsName, callback) {
 
 function checkError(err) {
   if (err) {
-    console.log(err.message);
+    // It's much more useful to dump out the complete error,
+    // particularly the stack trace.
+    // console.log(err.message);
+    console.log(err);    
     process.exit(1);
   }
 }
